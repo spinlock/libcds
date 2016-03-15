@@ -151,7 +151,7 @@ namespace cds { namespace container {
         /// Guarded pointer
         typedef typename gc::template guarded_ptr< node_type, value_type, details::guarded_ptr_cast_set<node_type, value_type> > guarded_ptr;
 
-    private:
+    protected:
         //@cond
         static value_type& node_to_value( node_type& n )
         {
@@ -161,10 +161,7 @@ namespace cds { namespace container {
         {
             return n.m_Value;
         }
-        //@endcond
 
-    protected:
-        //@cond
         template <typename Q>
         static node_type * alloc_node( Q const& v )
         {
@@ -733,6 +730,11 @@ namespace cds { namespace container {
 
     protected:
         //@cond
+        bool insert_node( node_type * pNode )
+        {
+            return insert_node_at( head(), pNode );
+        }
+
         bool insert_node_at( head_type& refHead, node_type * pNode )
         {
             assert( pNode );
